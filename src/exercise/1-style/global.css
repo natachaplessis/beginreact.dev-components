@@ -1,6 +1,21 @@
+:root {
+  --primary: #646cff;
+  --secondary: #16a34a;
+  --default: #171717;
+}
+
 .button {
   background-color: var(--background-color);
   padding: var(--padding);
   font-size: var(--font-size);
+  border: 0px;
+  border-radius: 4px;
   /* default styles... */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }

@@ -17,8 +17,14 @@ const ShoppingItem = ({ name, quantity, checked }) => {
   return (
     <div className={styles['shopping-item']}>
       <div className={styles.section}>
-        <p>{name}</p>
-        <p className={styles.badge}>{quantity}</p>
+        <p
+          style={{
+            color: name.length <= 2 ? 'red' : 'green',
+          }}
+        >
+          {name}
+        </p>
+        {quantity !== 1 ? <p className={styles.badge}>{quantity}</p> : null}
       </div>
       <div className={styles.section}>
         <input type="checkbox" defaultChecked={checked} />
@@ -32,11 +38,9 @@ const ShoppingList = () => {
     <div className={styles['shopping-list']}>
       <h2>Shopping List</h2>
       <div className={styles['shopping-list-items']}>
-        {/* 💣 supprime cette ligne */}
-        <ShoppingItem name="Milk" quantity={2} checked={false} />
-        {/* 🦁 Fais une liste en utilisant ShoppingListData */}
-        {/* 💡 ShoppingListData.map(item => ()) */}
-        {/* 💡 N'oublie pas la `key` */}
+        {ShoppingListData.filter((item) => item.quantity !== 0).map((item) => (
+          <ShoppingItem key={item.id} {...item} />
+        ))}
       </div>
     </div>
   );

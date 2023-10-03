@@ -1,43 +1,65 @@
-// 🦁 Les styles par défaut pour touts les variants sont :
-// - border: 0
-// - borderRadius: 4
+import clsx from 'clsx';
+import styled from 'styled-components';
 
-// 🦁 Il y a 3 variants : `primary`, `secondary` et `default`
-// Crée un objet ici qui contient les styles pour chaque variant
-// 💡 const VariantsStyle = { primary: { ... }, secondary: { ... }, default: { ... } }
-// - primary : le background est #646cff
-// - secondary : le background est #16a34a
-// - default : le background est #171717
+// const VariantsStyle = {
+//   primary: 'bg-[#646cff]',
+//   secondary: 'bg-green-600',
+//   default: 'bg-neutral-900',
+// };
 
-// 🦁 Il y a deux size : `small` et `large`
-// Fais la même chose que pour les variants (en utilisant SizesStyle)
-// - small : le padding est 8px 16px et le fontSize est 1rem
-// - large : le padding est 12px 24px et le fontSize est 1.2rem
+// const SizesStyle = {
+//   small: 'py-2 px-4 text-base',
+//   large: 'py-3 px-6 text-lg',
+// };
 
-// 💡 `backgroundColor: 'red'` -> On utilise `backgroundColor` et pas `background-color`
-// car on est dans du JavaScript et pas dans du CSS.
+const Button = styled.button({
+  // en utilisant une fonction tu va pouvoir définir des styles conditionnellement
+  // ici avec un block
+  backgroundColor: (props) => {
+    if (props.variant === 'primary') return '#646cff';
+    else if (props.variant === 'secondary') return '#16a34a';
+    else return '#171717';
+  },
+  // color: 'white',
+  // ici j'utilise un ternaire pour définir la largeur du bouton en fonction
+  // de la props "size"
+  padding: (props) => (props.size === 'small' ? '8px 16px' : '12px 24px'),
+  fontSize: (props) => (props.size === 'small' ? '1rem' : '1.2rem'),
+});
 
-const Button = ({ variant, size, children }) => {
-  // 🦁 Utiliser les objets VariantsStyle et SizesStyle pour appliquer les styles
-  // 💡 variantStyle = VariantsStyle[variant];
-
-  // 🦁 Ajouter l'objet `style` sur le bouton
-  // 💡 style={{ ... }}
-  // 💡 Tu pourras utiliser `variantStyle` et `sizeStyle` pour appliquer les styles
-  //    En utilisant le spread operator : { ...variantStyle, ...sizeStyle }
-  return <button>{children}</button>;
-};
+// const Button = ({ variant, size, children }) => {
+// const variantStyle = VariantsStyle[variant];
+// const sizeStyle = SizesStyle[size];
+//   return (
+//     <button
+//       className={clsx(
+//         'border-0 rounded',
+//         {
+//           'bg-[#646cff]': variant === 'primary',
+//           'bg-green-600': variant === 'secondary',
+//           'bg-neutral-900': variant === 'default',
+//         },
+//         {
+//           'py-2 px-4 text-base': size === 'small',
+//           'py-3 px-6 text-lg': size === 'large',
+//         }
+//       )}
+//     >
+//       {children}
+//     </button>
+//   );
+// };
 
 const Demo = () => {
   return (
     // 🦁 Ajouter des styles pour que les boutons soit alignés au centre avec
     // display: flex et flexDirection: column ainsi que alignItems: center
-    <div>
+    <div className="items-center flex flex-col gap-4">
       <Button variant="primary" size="small">
         Primary small
       </Button>
       <Button variant="secondary" size="small">
-        Primary small
+        Secondary small
       </Button>
       <Button variant="default" size="small">
         Default small
