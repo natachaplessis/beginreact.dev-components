@@ -10,72 +10,67 @@ const Header = () => {
   )
 }
 
-const ShoppingList = () => {
+const Badge = ({children}) => (
+  <p className={styles.badge}>{children}</p>
+) //parenthèses OK car on ne return que du jsx --> sinon {expression en js ... return (/jsx/)}
 
-  const ShoppingListData = [
-    {id: 1, name: 'Carotte', quantity: 12, checked: false},
-    {id: 2, name: 'Patate', quantity: 19, checked: false},
-  ]
+const SHOPPING_DATA = [
+  {id: 1, name: 'Carotte', quantity: 12, checked: false},
+  {id: 2, name: 'Patate', quantity: 19, checked: false},
+]
 
-  const ShoppingItem = ({name, quantity, checked}) => {
-    return (
-      <div className={clsx(styles['shopping-item'], styles['bg-paper'])}>
-        <div className={styles.section}>
-          <p>{name}</p>
-          <p className={styles.badge}>{quantity}</p>
-        </div>
-        <div className={styles.section}>
-          <input type="checkbox" value={checked} />
-        </div>
+const ShoppingItem = ({name, quantity, checked}) => (
+    <div className={clsx(styles['shopping-item'], styles['bg-paper'])}>
+      <div className={styles.section}>
+        <p>{name}</p>
+        <Badge>{quantity}</Badge>
       </div>
-    )
-  }
-  
-  return (
+      <div className={styles.section}>
+        <input type="checkbox" value={checked} />
+      </div>
+    </div>
+  )
+
+const ShoppingList = () => (
     <div className={clsx(styles['flex-col'])}>
       <h2>Liste de course</h2>
         <div className={styles['shopping-list-items']}>
-          {ShoppingListData.map((item) => (
+          {SHOPPING_DATA.map((item) => (
             <ShoppingItem key={item.id} {...item} />
           ))}
         </div>
     </div>
   )
-}
 
-const Recipes = () => {
+const RECIPE_DATA = [
+  {id: 1, name : 'Tarte à la carotte', date : '11.06.22'},
+  {id: 1, name : 'Sauce aux haricots', date : '15.08.22'},
+]
 
-  
+const Recipe = ({name, date}) => (
+    <li className={clsx(styles['flex'], styles['gap-4'])}>
+      <span>{name}</span>
+      <Badge>{date}</Badge>
+    </li>
+  )
 
-  return (
+const Recipes = () => (
     <div className={clsx(styles['flex-col'])}>
         <h2>Liste de recettes à faire</h2>
 
         <ul className={clsx(styles['flex-col'], styles['gap-2'])}>
-          <li className={clsx(styles['flex'], styles['gap-4'])}>
-            <span>Tarte à la carotte</span>
-            <p className={styles.badge}>11.06.22</p>
-          </li>
-
-          <li className={clsx(styles['flex'], styles['gap-4'])}>
-            <span>Purée de patate</span>
-            <p className={styles.badge}>15.08.23</p>
-          </li>
-
-          <li className={clsx(styles['flex'], styles['gap-4'])}>
-            <span>Sauce au haricot</span>
-            <p className={styles.badge}>22.09.24</p>
-          </li>
+          {RECIPE_DATA.map((item)=>(
+            <Recipe key={item.id} {...item} />
+          ))}
         </ul>
       </div>
   )
-}
 
-const Footer = () => {
+const Footer = () => (
   <footer>
     <p>Create by BeginReact.dev</p>
   </footer>
-}
+)
 
 const App = () => {
   return (
